@@ -64,7 +64,8 @@ private[core] final class TypeSumCodecMacros(val c: blackbox.Context) {
           val imports: List[Tree] = List(
             q"import io.circe.Json",
             q"import io.circe.Decoder",
-            q"import io.circe.Encoder"
+            q"import io.circe.Encoder",
+            q"import io.circe.HCursor"
           )
 
           q"""
@@ -104,15 +105,3 @@ private[core] final class TypeSumCodecMacros(val c: blackbox.Context) {
       clsDef.mods.hasFlag(Flag.SEALED)
     }
 }
-
-
-// object X {
-
-//   @JsonCodec
-//   case class A(a: String, b: Int)
-
-//   val n = A("", 2)
-//   Json.fromJsonObject()
-//   n.asJson.asObject.get
-
-// }
