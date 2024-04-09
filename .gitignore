@@ -1,0 +1,7 @@
+target/*
+project/*
+.vscode/*
+.metals/*
+.bloop/*
+.bsp/*
+.scalafmt.conf
