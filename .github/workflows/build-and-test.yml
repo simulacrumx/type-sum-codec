@@ -1,4 +1,4 @@
-name: CI
+name: build-and-test
 
 on:
     push:
@@ -9,10 +9,10 @@ jobs:
         steps:
             - name: checkout
               uses: actions/checkout@v4
-            - name: setup_jdk
-              uses: actions/setup-java@v3
+            - name: setup-jdk
+              uses: actions/setup-java@v4
               with:
                   distribution: 'temurin'
                   java-version: '17'
-            - name: build_and_test
+            - name: build-and-test
               run: sbt -v +test      

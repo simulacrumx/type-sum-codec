@@ -3,8 +3,7 @@ package core
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.must.Matchers
 import io.circe.generic.JsonCodec
-import io.circe.HCursor
-import io.circe.syntax._
+ import io.circe.syntax._
 
 class TypeSumCodecTest extends AnyFlatSpec with Matchers {
   

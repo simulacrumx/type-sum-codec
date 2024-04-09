@@ -1,0 +1,21 @@
+name: publish
+on:
+    release
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+        steps:
+            - uses: actions/checkout@v4
+            - name: setup-jdk
+              uses: actions/setup-java@v4
+              with:
+                  distribution: 'temurin'
+                  java-version: '17'
+            - name: publish
+              run: mvn --batch-mode deploy
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
