@@ -27,3 +27,12 @@ libraryDependencies ++=
    "org.scala-lang" % "scala-reflect" % scalaVersion.value
 )
 
+
+publishTo := Some("GitHub simulacrumx Apache Maven Packages" at "https://maven.pkg.github.com/simulacrumx/type-sum-codec")
+publishMavenStyle := true
+credentials += Credentials(
+  "GitHub Package Registry",
+  "maven.pkg.github.com",
+  "simulacrumx",
+  System.getenv("GITHUB_TOKEN")
+)
