@@ -2,6 +2,12 @@ scalaVersion := "2.13.12"
 
 name := "type-sum-codec"
 
+val releaseVersion: String = System.getenv("RELEASE_VERSION")
+
+ThisBuild / organization := "com.github.simulacrumx"
+ThisBuild / version := (if (releaseVersion == null) "0.1.0-SNAPSHOT" else releaseVersion)
+ThisBuild / versionScheme := Some("early-semver")
+
 
 scalacOptions ++= Seq(
   "-Ymacro-annotations",

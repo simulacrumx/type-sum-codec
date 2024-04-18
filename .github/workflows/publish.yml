@@ -15,8 +15,9 @@ jobs:
               uses: actions/setup-java@v4
               with:
                   distribution: 'temurin'
-                  java-version: '17'
+                  java-version: '17'     
             - name: publish
               run: sbt test publish
               env:
+                RELEASE_VERSION: ${{ github.ref_name }}
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
