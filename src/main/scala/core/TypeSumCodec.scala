@@ -7,7 +7,7 @@ import io.circe.Encoder
 import io.circe.syntax._
 import io.circe.Json
 
-class TypeSumCodec extends scala.annotation.StaticAnnotation  {
+class TypeSumCodec(typeHint: String = "type") extends scala.annotation.StaticAnnotation  {
   def macroTransform(annottees: Any*): Any = macro TypeSumCodecMacros.innerMacros
 }
 
@@ -21,7 +21,7 @@ private[core] final class TypeSumCodecMacros(val c: blackbox.Context) {
           comp @ q"..$mods object $companionName extends { ..$directParent } with ..$objParents { $self => ..$definitions }"
         ) if isTypeSum(clsDef) =>
 
-          val typeTagStr = """type"""
+          val typeTagStr = codecTypeHintName
 
           val filtered = filterChildrenCaseClasses(definitions, clsDef)
 
@@ -96,12 +96,29 @@ private[core] final class TypeSumCodecMacros(val c: blackbox.Context) {
       }
     }
 
-
     private def isCaseClass(mods: Modifiers): Boolean = {
       mods.hasFlag(Flag.CASE)
     }
 
     private def isTypeSum(clsDef: ClassDef): Boolean = {
       clsDef.mods.hasFlag(Flag.SEALED)
+    }
+
+    private[this] val macroName: Tree = {
+      c.prefix.tree match {
+        case Apply(Select(New(name), _), _) => name
+        case _                              => c.abort(c.enclosingPosition, "Unexpected macro application")
+      }
+    }
+
+    private[this] val codecTypeHintName: String = {
+      c.prefix.tree match {
+        case q"new ${`macroName`}()" => "type"
+        case q"new ${`macroName`}(typeHint = $v)"                  => v match {
+          case Literal(Constant(s: String)) => s
+          case _ => c.abort(c.enclosingPosition, s"Unsupported arguments supplied to @$macroName")
+        }
+        case _ => c.abort(c.enclosingPosition, s"Unsupported arguments supplied to @$macroName")
+      }
     }
 }

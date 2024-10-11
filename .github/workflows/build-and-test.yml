@@ -15,4 +15,4 @@ jobs:
                   distribution: 'temurin'
                   java-version: '17'
             - name: build-and-test
-              run: sbt -v +test      
+              run: sbt update -v +test      

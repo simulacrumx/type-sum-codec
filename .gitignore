@@ -1,5 +1,6 @@
 target/*
 project/*
+!project/plugins.sbt
 .vscode/*
 .metals/*
 .bloop/*

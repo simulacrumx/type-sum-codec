@@ -1,7 +1,7 @@
-name: publish
+name: release
 on:
     release:
-         types: [created]
+        types: [created]
 
 jobs:
     publish:
@@ -15,8 +15,11 @@ jobs:
               uses: actions/setup-java@v4
               with:
                   distribution: 'temurin'
-                  java-version: '17'
+                  java-version: '17'     
             - name: publish
-              run: sbt test publish
+              run: sbt update test publishSigned
               env:
+                RELEASE_VERSION: ${{ github.ref_name }}
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
+                SONATYPE_USERID: ${{ secrets.SONATYPE_USERID }}
+                SONATYPE_TOKEN: ${{ secrets.SONATYPE_TOKEN }}
