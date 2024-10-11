@@ -23,45 +23,8 @@ inThisBuild(
   )
 )
 
-val actualVersion =
-  (if (releaseVersion == null) "0.1.0-SNAPSHOT" else releaseVersion)
-
-ThisBuild / organization := "io.github.simulacrumx"
-ThisBuild / version := actualVersion
-ThisBuild / versionScheme := Some("early-semver")
-ThisBuild / developers := List(
-  Developer(
-    id = "kirillxsitnikov",
-    name = "Kirill Sitnikov",
-    email = "kirillxsitnikov@gmail.com",
-    url = url("https://github.com/simulacrumx")
-  )
-)
-
-ThisBuild / licenses := Seq(
-  "APL2" -> url("https://www.apache.org/licenses/LICENSE-2.0.txt")
-)
-ThisBuild / homepage := Some(
-  url("https://github.com/simulacrumx/type-sum-codec")
-)
-
-ThisBuild / pomIncludeRepository := { _ => false }
-
-ThisBuild / publishTo := {
-  val nexus = "https://s01.oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
-
-ThisBuild / credentials += Credentials(
-  "Sonatype Nexus Repository Manager",
-  "s01.oss.sonatype.org",
-  System.getenv("SONATYPE_USERID"),
-  System.getenv("SONATYPE_TOKEN")
-)
-
-ThisBuild / publishMavenStyle := true
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
 
 scalacOptions ++= Seq(
   "-Ymacro-annotations"

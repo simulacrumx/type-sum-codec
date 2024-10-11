@@ -15,11 +15,15 @@ jobs:
               uses: actions/setup-java@v4
               with:
                   distribution: 'temurin'
-                  java-version: '17'     
+                  java-version: '17' 
+                  cache: sbt          
             - name: publish
-              run: sbt update test publishSigned
+              uses: sbt/setup-sbt@v1
+            - run: sbt ci-release
               env:
                 RELEASE_VERSION: ${{ github.ref_name }}
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
-                SONATYPE_USERID: ${{ secrets.SONATYPE_USERID }}
-                SONATYPE_TOKEN: ${{ secrets.SONATYPE_TOKEN }}
+                SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+                SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+                PGP_SECRET: ${{ secrets.PGP_SECRET }}
+                PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
