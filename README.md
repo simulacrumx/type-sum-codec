@@ -68,6 +68,7 @@ object Node {
     @JsonCodec
     case class ListNode(val id: String, name: String, listSpecialField: Option[Int]) extends Node
 }
+```
 
 #### Important
 
