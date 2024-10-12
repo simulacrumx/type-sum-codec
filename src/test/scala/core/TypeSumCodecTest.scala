@@ -1,11 +1,12 @@
-package core
+package io.github.simulacrumx.tscodec
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.must.Matchers
 import io.circe.generic.JsonCodec
 import io.circe.syntax._
 import io.circe.literal._
-
+import io.circe.Encoder
+import io.circe.Json
 class TypeSumCodecTest extends AnyFlatSpec with Matchers {
 
   @TypeSumCodec
@@ -57,7 +58,6 @@ class TypeSumCodecTest extends AnyFlatSpec with Matchers {
 
   it must "have a type hint key from annotation parameter" in {
     val a: TestHintSum = TestHintSum.A(1, 2)
-
     a.asJson mustBe json""" { "a": 1, "b": 2, "hint": "A" }"""
   }
 
