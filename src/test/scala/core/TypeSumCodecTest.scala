@@ -7,6 +7,7 @@ import io.circe.syntax._
 import io.circe.literal._
 import io.circe.Encoder
 import io.circe.Json
+
 class TypeSumCodecTest extends AnyFlatSpec with Matchers {
 
   @TypeSumCodec

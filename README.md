@@ -1,6 +1,6 @@
 ## Type sum codec
 
-While using databases storing json documents (MongoDB, ElasticSearch) someone could face a problem of decoding/encoding type sums e.g building codecs for navigation tree elements, which have varied types ans structure. One should build boilerplate codecs like this one: 
+While using databases storing json documents (MongoDB, ElasticSearch) someone could face a problem of decoding/encoding type sums e.g building codecs for navigation tree elements, which have varied types and structure. One should build boilerplate codecs like this one: 
 
 ```scala
 sealed trait Node
